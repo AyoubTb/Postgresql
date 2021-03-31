@@ -1,0 +1,32 @@
+---
+- name: install and configure Tomcat
+  hosts: sgabs_web_1
+  gather_facts: false
+  become: yes
+
+  tasks:
+  
+  - name: Updating apt
+    command: apt-get update
+      
+  - name: Install nginx
+    apt:
+      name: nginx
+      state: latest
+    tags: nginx
+    
+  - name: restart nginx
+    service:
+      name: nginx
+      state: started
+      
+  - name: Install PostgreSQL
+    apt:
+      name: postgresql
+      state: latest
+    tags: PostgreSQL
+      
+  - name: Start PostgreSQL service
+    service:
+      name: postgresql
+      state: started
